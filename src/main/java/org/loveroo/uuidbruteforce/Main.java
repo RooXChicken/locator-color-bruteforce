@@ -1,5 +1,7 @@
 package org.loveroo.uuidbruteforce;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,7 +36,17 @@ public class Main {
         System.out.println(id.toString());
         System.out.println(username);
 
+        try(final var writer = new FileOutputStream("result.txt")) {
+            writer.write((id + " " + username).getBytes());
+        }
+        catch(Exception e) {}
+
         threads.forEach(Thread::interrupt);
+
+        System.out.println("Press enter to exit...");
+        final var scanner = new Scanner(System.in);
+        scanner.nextLine();
+
         Runtime.getRuntime().exit(0);
     }
 }
